@@ -1,0 +1,2 @@
+Set status=$SYSTEM.SQL.DDLImport("IRIS","irisowner","/home/irisowner/misc/createtable.sql",,0,"",";",0)
+h

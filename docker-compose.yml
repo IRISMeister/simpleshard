@@ -1,0 +1,60 @@
+version: '3.7'
+#
+# $PWD is mounted as a generic /ISC in the container which then has the 
+# /ISC/etc and eventually 
+#
+services:
+  data01:
+    image: containers.intersystems.com/intersystems/iris:2020.3.0.221.0
+    init: true
+    container_name: data01 
+    hostname: data01
+    command:
+      --key /home/irisowner/license/iris.key
+    volumes:
+    - ./license:/home/irisowner/license
+    - ./misc:/home/irisowner/misc
+    - ./UserCPF:/home/irisowner/cpf
+    ports:
+      - "9092:52773"
+    cap_add:
+    - IPC_LOCK
+    environment:
+    - TZ=JST-9
+    - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge.cpf
+  data02:
+    image: containers.intersystems.com/intersystems/iris:2020.3.0.221.0
+    init: true
+    container_name: data02 
+    hostname: data02
+    command:
+      --key /home/irisowner/license/iris.key
+    volumes:
+    - ./license:/home/irisowner/license
+    - ./misc:/home/irisowner/misc
+    - ./UserCPF:/home/irisowner/cpf
+    ports:
+      - "9093:52773"
+    cap_add:
+    - IPC_LOCK
+    environment:
+    - TZ=JST-9
+    - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge.cpf
+  data03:
+    image: containers.intersystems.com/intersystems/iris:2020.3.0.221.0
+    init: true
+    container_name: data03 
+    hostname: data03
+    command:
+      --key /home/irisowner/license/iris.key
+    volumes:
+    - ./license:/home/irisowner/license
+    - ./misc:/home/irisowner/misc
+    - ./UserCPF:/home/irisowner/cpf
+    ports:
+      - "9094:52773"
+    cap_add:
+    - IPC_LOCK
+    environment:
+    - TZ=JST-9
+    - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge.cpf

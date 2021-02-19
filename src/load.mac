@@ -1,0 +1,14 @@
+ROUTINE load
+ ; 注意) ObjectScriptからのデータロードは非常に低速です。
+ For tempo=1:1:5 {
+     Set tempoid=$E("00"_tempo,*-1,*)
+    for i=1:1:10000 {
+        Set item=$E("000"_($R(100)+1),*-2,*)
+        set orderdate="2020-01-01"
+        set price=100
+        &SQL(INSERT %NOJOURN %NOLOCK INTO SALES (TempoID,ItemID,OrderDate,price) VALUES (:tempoid,:item,:orderdate,:price))
+    }
+ }
+ Do $SYSTEM.SQL.TuneTable("SALES",,1)
+ ;
+ ;SELECT SUM(price),ItemID FROM SALES WHERE orderdate='2020-01-01' and TempoID='2' group by ItemID
