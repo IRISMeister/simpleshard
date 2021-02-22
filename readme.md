@@ -1,5 +1,5 @@
 ## 目的
-shardingの動作確認を行うための環境作成。コミュニティエディションでは動作しません。
+shardingの動作確認を行うための環境作成。コミュニティエディションでは動作しません。  
 CPF MergeおよびSimpleLoader使用のため、要2020.4～。
 
 ## 起動
@@ -39,5 +39,7 @@ $ docker-compose exec data03 iris session iris -U IRISDM
 ```
 
 OpenData(NYCのタクシーデータ)の取り込み
+```
 $ curl https://s3.amazonaws.com/nyc-tlc/trip+data/green_tripdata_2016-01.csv | sed  '/^.$/d' > loader/green_tripdata_2016-01.csv
 $ docker-compose exec loader /app/loader/shell/green.sh
+```
