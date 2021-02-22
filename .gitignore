@@ -1,2 +1,4 @@
 **/iris.key
-misc/createtable_Errors.log
+loader/green_tripdata_2016-01.csv
+misc/00_createtable_Errors.log
+misc/01_createtable_Errors.log

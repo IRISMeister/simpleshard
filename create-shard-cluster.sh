@@ -18,5 +18,8 @@ docker-compose exec -T data03 bash -c "\$ISC_PACKAGE_INSTALLDIR/dev/Cloud/ICM/wa
 docker-compose exec data01 bash -c "iris session iris -U %SYS < /home/irisowner/misc/initialize.cos"
 docker-compose exec data02 bash -c "iris session iris -U %SYS < /home/irisowner/misc/join.cos"
 docker-compose exec data03 bash -c "iris session iris -U %SYS < /home/irisowner/misc/join.cos"
+docker-compose exec data01 bash -c "iris session iris -U %SYS < /home/irisowner/misc/verify.cos"
 
 docker-compose exec data01 bash -c "iris session iris -U IRISDM < /home/irisowner/misc/import.cos"
+
+docker-compose exec loader /app/loader/shell/sales.sh

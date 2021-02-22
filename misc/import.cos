@@ -1,2 +1,7 @@
-Set status=$SYSTEM.SQL.DDLImport("IRIS","irisowner","/home/irisowner/misc/createtable.sql",,0,"",";",0)
+;deprecated
+;Set status=$SYSTEM.SQL.DDLImport("IRIS","irisowner","/home/irisowner/misc/00_createtable.sql",,0,"",";",0)
+;deprecated
+;Set status=$SYSTEM.SQL.DDLImport("IRIS","irisowner","/home/irisowner/misc/01_createtable.sql",,0,"",";",0)
+Do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/misc/00_createtable.sql")
+Do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/misc/01_createtable.sql")
 h

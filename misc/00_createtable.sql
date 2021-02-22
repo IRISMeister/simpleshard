@@ -5,7 +5,11 @@ CREATE TABLE sales (
     OrderDate TimeStamp, 
     price BigInt, 
     shard key (ItemID)
-);
-CREATE INDEX idx_TempoID ON sales(TempoID);
-CREATE INDEX idx_ItemID ON sales(ItemID);
-CREATE INDEX idx_OrderDate ON sales(OrderDate);
+)
+GO
+CREATE INDEX idx_TempoID ON sales(TempoID)
+GO
+CREATE INDEX idx_ItemID ON sales(ItemID)
+GO
+CREATE INDEX idx_OrderDate ON sales(OrderDate)
+GO
