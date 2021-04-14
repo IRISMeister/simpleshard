@@ -1,4 +1,4 @@
-FROM containers.intersystems.com/intersystems/iris:2020.4.0.524.0 AS builder
+FROM containers.intersystems.com/intersystems/iris:2020.4.0.547.0 AS builder
 
 FROM openjdk:8-jdk-alpine
 

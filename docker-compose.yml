@@ -5,7 +5,7 @@ version: '3.7'
 #
 services:
   data01:
-    image: containers.intersystems.com/intersystems/iris:2020.4.0.524.0
+    image: containers.intersystems.com/intersystems/iris:2020.4.0.547.0
     init: true
     container_name: data01 
     hostname: data01
@@ -23,7 +23,7 @@ services:
     - TZ=JST-9
     - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge.cpf
   data02:
-    image: containers.intersystems.com/intersystems/iris:2020.4.0.524.0
+    image: containers.intersystems.com/intersystems/iris:2020.4.0.547.0
     init: true
     container_name: data02 
     hostname: data02
@@ -41,7 +41,7 @@ services:
     - TZ=JST-9
     - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge.cpf
   data03:
-    image: containers.intersystems.com/intersystems/iris:2020.4.0.524.0
+    image: containers.intersystems.com/intersystems/iris:2020.4.0.547.0
     init: true
     container_name: data03 
     hostname: data03
