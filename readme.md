@@ -18,20 +18,22 @@ data01,data02,data03コンテナのIRISSHARDデータベースにshardテーブ�
 jdbc接続先の例 - jdbc:IRIS://irishost:1972/irisdm
 
 ## データロード
-- SimpleLoaderによるロード
-[loader/shell/sales.sh](loader/shell/sales.sh)が[SimpleMover](https://docs.intersystems.com/irislatest/csp/docbook/Doc.View.cls?KEY=ABULKLOAD)を使用して、[loader/sales.csv](loader/sales.csv)を高速ロードします。
+- SimpleLoaderによるロード  
+[loader/shell/sales.sh](loader/shell/sales.sh)が[SimpleMover](https://docs.intersystems.com/irislatest/csp/docbook/Doc.View.cls?KEY=ABULKLOAD)を使用して、[loader/sales.csv](loader/sales.csv)を高速ロードします。  
+[start.sh](start.sh)から実行されています。
 
-- ObjectScriptによるロード
+- ObjectScriptによるロード  
 [load.mac](src/load.mac)を使用してロードを行います。
 ただし、ObjectScriptからのデータロードは非常に低速です。  
-https://docs.intersystems.com/iris20201/csp/docbookj/Doc.View.cls?KEY=GSCALE_sharding#GSCALE_sharding_tables_load
+https://docs.intersystems.com/iris20201/csp/docbookj/Doc.View.cls?KEY=GSCALE_sharding#GSCALE_sharding_tables_load  
 実行するには、起動後、下記コマンドでロードを開始してください。
 ```
 $ docker-compose exec data01 iris session iris -U IRISDM load
 ```
-- SimpleLoaderによる大量ロード
+- SimpleLoaderによる大量ロード  
 export.macによりCSVファイルを作成し、SimpleLoaderでロードを実行します。下記のテーブルを作成します。  
 tx_table_sub1とtx_table_sub2はShardキーだけが異なるテーブルで、全く同じ内容のデータがロードされます。  
+
 |テーブル名|シャード|Shard Key|
 |:--|:--|:--|
 |tx_table_main|Yes|JANCD|
@@ -39,9 +41,7 @@ tx_table_sub1とtx_table_sub2はShardキーだけが異なるテーブルで、�
 |tx_table_sub2|Yes|(Auto)|
 |master_table|No|N/A|
 
-
 ```
-$ docker-compose exec data01 iris session iris -U IRISDM export
 $ ./load.sh
 ```
 ## アクセス
