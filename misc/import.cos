@@ -1,7 +1,5 @@
-;deprecated
-;Set status=$SYSTEM.SQL.DDLImport("IRIS","irisowner","/home/irisowner/misc/00_createtable.sql",,0,"",";",0)
-;deprecated
-;Set status=$SYSTEM.SQL.DDLImport("IRIS","irisowner","/home/irisowner/misc/01_createtable.sql",,0,"",";",0)
-Do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/misc/00_createtable.sql")
-Do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/misc/01_createtable.sql")
+set rs=##class(%ResultSet).%New("%File:FileSet") d rs.Execute("/home/irisowner/misc","*.sql")
+While(rs.Next()) { Do $SYSTEM.SQL.Schema.ImportDDL(rs.Name) }
+
+Do $SYSTEM.OBJ.ImportDir("/home/irisowner/src/","*.mac","ck",,1)
 h

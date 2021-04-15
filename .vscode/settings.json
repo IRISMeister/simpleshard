@@ -1,10 +1,33 @@
 {
+    "intersystems.servers": {   
+        "data01": {
+            "webServer": {
+                "scheme": "http",
+                "host": "localhost",
+                "port": 9092
+            },
+            "username": "SuperUser"
+        },
+        "data02": {
+            "webServer": {
+                "scheme": "http",
+                "host": "localhost",
+                "port": 9093
+            },
+            "username": "SuperUser"
+        },
+        "data03": {
+            "webServer": {
+                "scheme": "http",
+                "host": "localhost",
+                "port": 9094
+            },
+            "username": "SuperUser"
+        }
+    },
     "objectscript.conn": {
+        "server": "data01",
         "ns": "IRISDM",
-        "host": "localhost",
-        "port": 9092,
-        "username": "SuperUser",
-        "password": "SYS",
         "active": true
     }
 }

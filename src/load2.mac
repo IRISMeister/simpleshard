@@ -1,0 +1,45 @@
+ROUTINE load2
+
+ Write "Truncating tables ",!
+ &SQL(truncate table tx_table_main)
+ &SQL(truncate table tx_table_sub1)
+ &SQL(truncate table tx_table_sub2)
+ &SQL(truncate table master_table)
+ Write "Data Loading ",!
+
+ Kill work
+ For i=1:1:50000 {
+    if (i#1000)=0 w "Records inserted:",i,!
+    Set JANCD="ABCDEFG"_$R(10000)
+    Set work(JANCD)=""
+    Set StoreCode=$E("0"_$R(100),*-1,*)
+    Set OrderYYMM="2020"_$E("0"_($R(12)+1),*-1,*)
+    Set OrderDateT=OrderYYMM_$E("0"_($R(28)+1),*-1,*)
+    Set OrderDate=+$ZDTH(OrderDateT,8)
+    Set Price1=$R(10000)+100 
+    Set Price2=$R(10000)+100 
+    Set Price3=$R(10000)+100 
+    Set NumOfItems=$R(100)+1
+    &SQL(INSERT %NOJOURN %NOLOCK INTO tx_table_main (JANCD,StoreCode,OrderDate,OrderYYMM,Price1,Price2,Price3,NumOfItems) VALUES (:JANCD,:StoreCode,:OrderDate,:OrderYYMM,:Price1,:Price2,:Price3,:NumOfItems))
+    If SQLCODE'=0 b 
+    &SQL(INSERT %NOJOURN %NOLOCK INTO tx_table_sub1 (JANCD,StoreCode,TxDate,TxYYMM,Price,NumOfItems) VALUES (:JANCD,:StoreCode,:OrderDate,:OrderYYMM,:Price1*0.8,:NumOfItems))
+    If SQLCODE'=0 b 
+    &SQL(INSERT %NOJOURN %NOLOCK INTO tx_table_sub2 (JANCD,StoreCode,TxDate,TxYYMM,Price,NumOfItems) VALUES (:JANCD,:StoreCode,:OrderDate,:OrderYYMM,:Price1*0.7,:NumOfItems))
+    If SQLCODE'=0 b 
+ }
+ Do $SYSTEM.SQL.TuneTable("tx_table_main",,1)
+ Do $SYSTEM.SQL.TuneTable("tx_table_sub1",,1)
+ Do $SYSTEM.SQL.TuneTable("tx_table_sub2",,1)
+ ;SELECT SUM(Price1),m.StoreCode FROM tx_table_main m inner join tx_table_sub1 s on m.jancd=s.jancd WHERE m.orderdate between '2020-01-01'and '2020-01-31'  group by m.StoreCode
+
+ ; populate master table
+ Set JANCD="" For {
+    Set JANCD=$O(work(JANCD)) q:JANCD=""
+    Set MName="ABCDEFG"_$R(1000)
+    Set MAddress="OPQRST"_$R(1000)
+    &SQL(INSERT %NOJOURN %NOLOCK INTO master_table (JANCD,MName,MAddress) VALUES (:JANCD,:MName,:MAddress))
+    If SQLCODE'=0 b 
+ }
+ Do $SYSTEM.SQL.TuneTable("master_table",,1)
+
+ w "",!

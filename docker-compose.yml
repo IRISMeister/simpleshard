@@ -15,8 +15,11 @@ services:
     - ./license:/home/irisowner/license
     - ./misc:/home/irisowner/misc
     - ./UserCPF:/home/irisowner/cpf
+    - ./src:/home/irisowner/src
+    - ./export:/home/irisowner/export
     ports:
       - "9092:52773"
+      - "1972:1972"
     cap_add:
     - IPC_LOCK
     environment:
@@ -35,6 +38,7 @@ services:
     - ./UserCPF:/home/irisowner/cpf
     ports:
       - "9093:52773"
+      - "9193:1972"
     cap_add:
     - IPC_LOCK
     environment:
@@ -53,6 +57,7 @@ services:
     - ./UserCPF:/home/irisowner/cpf
     ports:
       - "9094:52773"
+      - "9194:1972"
     cap_add:
     - IPC_LOCK
     environment:
@@ -65,5 +70,6 @@ services:
     build:
       context: ./loader/build
     volumes:
-    - ./loader:/app/loader
+      - ./loader:/app/loader
+      - ./export:/app/export
 

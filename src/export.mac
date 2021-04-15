@@ -1,0 +1,42 @@
+ROUTINE export
+
+ Write "generating data",!
+ Set main="/home/irisowner/export/tx_table_main.txt" o main:"nws" 
+ Set sub1="/home/irisowner/export/tx_table_sub1.txt" o sub1:"nws" 
+ Set sub2="/home/irisowner/export/tx_table_sub2.txt" o sub2:"nws"  
+ u main w "JANCD,StoreCode,OrderDate,OrderYYMM,Price1,Price2,Price3,NumOfItems",!
+ u sub1 w "JANCD,StoreCode,TxDate,TxYYMM,Price,NumOfItems",!
+ u sub2 w "JANCD,StoreCode,TxDate,TxYYMM,Price,NumOfItems",!
+ 
+ Kill work
+ For i=1:1:1000000 {
+    Set JANCD="ABCDEFG"_$R(10000)
+    Set work(JANCD)=""
+    Set StoreCode=$E("0"_$R(100),*-1,*)
+    Set OrderYYMM="2020"_$E("0"_($R(12)+1),*-1,*)
+    Set OrderDateT=OrderYYMM_$E("0"_($R(28)+1),*-1,*)
+    Set OrderDate=+$ZDTH(OrderDateT,8)
+    Set Price1=$R(10000)+100 
+    Set Price2=$R(10000)+100 
+    Set Price3=$R(10000)+100 
+    Set NumOfItems=$R(100)+1
+    u main w JANCD_","_StoreCode_","_OrderDate_","_OrderYYMM_","_Price1_","_Price2_","_Price3_","_NumOfItems,!
+    u sub1 w JANCD_","_StoreCode_","_OrderDate_","_OrderYYMM_","_(Price1*0.8)_","_NumOfItems,!
+    u sub2 w JANCD_","_StoreCode_","_OrderDate_","_OrderYYMM_","_(Price1*0.7)_","_NumOfItems,!
+ }
+ c main
+ c sub1
+ c sub2
+
+ ; populate master table
+ Set master="/home/irisowner/export/master_table.txt" o master:"nws" 
+ u master w "JANCD,MName,MAddress",!
+ Set JANCD="" For {
+    Set JANCD=$O(work(JANCD)) q:JANCD=""
+    Set MName="ABCDEFG"_$R(1000)
+    Set MAddress="OPQRST"_$R(1000)
+    u master w JANCD_","_MName_","_MAddress,!
+ }
+ c master
+
+ w "",!
