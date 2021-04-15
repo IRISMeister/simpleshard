@@ -6,7 +6,7 @@ CREATE TABLE tx_table_sub2 (
     TxYYMM VARCHAR(6), 
     Price numeric(18,2), 
     NumOfItems Integer,
-    shard key (JANCD)
+    shard
 )
 GO
 CREATE BITMAP INDEX idx_JANCD ON tx_table_sub2(JANCD)

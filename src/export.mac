@@ -22,7 +22,7 @@ ROUTINE export
     Set NumOfItems=$R(100)+1
     u main w JANCD_","_StoreCode_","_OrderDate_","_OrderYYMM_","_Price1_","_Price2_","_Price3_","_NumOfItems,!
     u sub1 w JANCD_","_StoreCode_","_OrderDate_","_OrderYYMM_","_(Price1*0.8)_","_NumOfItems,!
-    u sub2 w JANCD_","_StoreCode_","_OrderDate_","_OrderYYMM_","_(Price1*0.7)_","_NumOfItems,!
+    u sub2 w JANCD_","_StoreCode_","_OrderDate_","_OrderYYMM_","_(Price1*0.8)_","_NumOfItems,!
  }
  c main
  c sub1

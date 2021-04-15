@@ -24,7 +24,7 @@ ROUTINE load2
     If SQLCODE'=0 b 
     &SQL(INSERT %NOJOURN %NOLOCK INTO tx_table_sub1 (JANCD,StoreCode,TxDate,TxYYMM,Price,NumOfItems) VALUES (:JANCD,:StoreCode,:OrderDate,:OrderYYMM,:Price1*0.8,:NumOfItems))
     If SQLCODE'=0 b 
-    &SQL(INSERT %NOJOURN %NOLOCK INTO tx_table_sub2 (JANCD,StoreCode,TxDate,TxYYMM,Price,NumOfItems) VALUES (:JANCD,:StoreCode,:OrderDate,:OrderYYMM,:Price1*0.7,:NumOfItems))
+    &SQL(INSERT %NOJOURN %NOLOCK INTO tx_table_sub2 (JANCD,StoreCode,TxDate,TxYYMM,Price,NumOfItems) VALUES (:JANCD,:StoreCode,:OrderDate,:OrderYYMM,:Price1*0.8,:NumOfItems))
     If SQLCODE'=0 b 
  }
  Do $SYSTEM.SQL.TuneTable("tx_table_main",,1)
