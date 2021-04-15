@@ -1,0 +1,6 @@
+ROUTINE tunetables
+ Do $SYSTEM.SQL.TuneTable("tx_table_main",,1)
+ Do $SYSTEM.SQL.TuneTable("tx_table_sub1",,1)
+ Do $SYSTEM.SQL.TuneTable("tx_table_sub2",,1)
+ Do $SYSTEM.SQL.TuneTable("master_table",,1)
+ w "",!
