@@ -39,9 +39,11 @@ $ ./load.sh
 ポータルは下記のURLでアクセス可能。ただし、irisihostはコンテナを起動したホスト名(もしくはIPアドレス)です。  
 ユーザ・パスワードはSuperUser/SYS
 
-http://irishost:9092/csp/sys/%25CSP.Portal.Home.zen
-http://irishost:9093/csp/sys/%25CSP.Portal.Home.zen
-http://irishost:9094/csp/sys/%25CSP.Portal.Home.zen
+|コンテナ名|URL|役割|
+|:--|:--|:--|
+|data01|http://irishost:9092/csp/sys/%25CSP.Portal.Home.zen|DATA,MASTER|
+|data02|http://irishost:9093/csp/sys/%25CSP.Portal.Home.zen|DATA|
+|data03|http://irishost:9094/csp/sys/%25CSP.Portal.Home.zen|DATA|
 
 IRISセッションは下記でアクセス可能。O/S認証されるのでユーザ・パスワードは入力不要です。
 ```
