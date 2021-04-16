@@ -1,5 +1,5 @@
 ROUTINE load2
-
+ ; 注意) ObjectScriptからのデータロードは非常に低速です。本ルーチンは参考のために掲載しています。データロードにはload.shを使用してください。
  Write "Truncating tables ",!
  &SQL(truncate table tx_table_main)
  &SQL(truncate table tx_table_sub1)
