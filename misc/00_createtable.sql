@@ -1,4 +1,3 @@
-lines (27 sloc) 1 KB
 CREATE TABLE sales (
     TempoID VARCHAR(10), 
     ItemID VARCHAR(10), 
