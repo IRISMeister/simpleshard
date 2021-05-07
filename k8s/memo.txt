@@ -1,0 +1,80 @@
+k8sはmicrok8sを使用して単独ホストで稼働させている。
+
+$ sudo snap install microk8s --classic (1.20)
+$ sudo usermod -a -G microk8s $USER
+$ sudo chown -f -R $USER ~/.kub
+$ microk8s start
+$ microk8s enable dns registry storage metallb
+metallb用のIPレンジに適切な範囲を設定 
+    k8s稼働環境がDefault G/W:192.168.11.1
+    CIDR:192.168.11.0/24 
+    とかであれば、[192.168.11.110-192.168.11.130]など。
+
+$ ./run.sh
+
+$ microk8s kubectl get svc -l app=iris
+NAME       TYPE           CLUSTER-IP      EXTERNAL-IP      PORT(S)           AGE
+iris-ext   LoadBalancer   10.152.183.29   192.168.11.110   52773:31262/TCP   6m24s
+iris       ClusterIP      None            <none>           52773/TCP         6m24s
+(iris-LoadBalancerなので公開IP付与。宛先は各irisのPODにラウンドロビンされる)
+(irisはHeadless ServiceなのでCLUSTER-IPなし)
+
+$ microk8s kubectl get pod -o wide
+NAME        READY   STATUS    RESTARTS   AGE     IP             NODE     NOMINATED NODE   READINESS GATES
+iris-ss-0   1/1     Running   0          2m59s   10.1.243.216   ubuntu   <none>           <none>
+iris-ss-1   1/1     Running   0          2m54s   10.1.243.217   ubuntu   <none>           <none>
+
+$ microk8s kubectl exec -it iris-ss-0 -- iris session iris
+
+停止、削除。Durable Sys, DBに使用したpvcも削除。
+$ ./delete.sh
+
+$ microk8s reset --destroy-storage
+$ microk8s stop
+
+
+DNSのテスト
+$ microk8s kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
+
+/ # nslookup iris-ss-0.iris  <=POD間通信で使用するホスト名
+Server:    10.152.183.10
+Address 1: 10.152.183.10 kube-dns.kube-system.svc.cluster.local
+
+Name:      iris-ss-0.iris
+Address 1: 10.1.243.216 iris-ss-0.iris.default.svc.cluster.local
+/ #
+/ #
+/ # nslookup iris-ss-1.iris
+Server:    10.152.183.10
+Address 1: 10.152.183.10 kube-dns.kube-system.svc.cluster.local
+
+Name:      iris-ss-1.iris
+Address 1: 10.1.243.217 iris-ss-1.iris.default.svc.cluster.local
+/ #
+/ #
+/ # nslookup iris
+Server:    10.152.183.10
+Address 1: 10.152.183.10 kube-dns.kube-system.svc.cluster.local
+
+Name:      iris
+Address 1: 10.1.243.229 10-1-243-229.iris-ext.default.svc.cluster.local
+Address 2: 10.1.243.228 10-1-243-228.iris-ext.default.svc.cluster.local
+/ #
+/ #
+/ # nslookup iris-ext
+Server:    10.152.183.10
+Address 1: 10.152.183.10 kube-dns.kube-system.svc.cluster.local
+
+Name:      iris-ext
+Address 1: 10.152.183.29 iris-ext.default.svc.cluster.local
+/ #
+$
+
+
+https://hawksnowlog.blogspot.com/2019/05/how-to-use-k8s-statefulset.html
+
+microk8s kubectl apply -f nginx_sts.yml
+microk8s kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
+microk8s kubectl delete -f nginx_sts.yml
+microk8s kubectl delete pvc www-web-0 www-web-1 www-web-2
+
