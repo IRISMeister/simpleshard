@@ -4,11 +4,11 @@ version: '3.7'
 # /ISC/etc and eventually 
 #
 services:
-  data01:
-    image: containers.intersystems.com/intersystems/iris:2020.4.0.547.0
+  data-0:
+    image: containers.intersystems.com/intersystems/iris:2021.1.0.205.0
     init: true
-    container_name: data01 
-    hostname: data01
+    container_name: data-0 
+    hostname: data-0.iris
     command:
       --key /home/irisowner/license/iris.key
     volumes:
@@ -25,11 +25,11 @@ services:
     environment:
     - TZ=JST-9
     - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge.cpf
-  data02:
-    image: containers.intersystems.com/intersystems/iris:2020.4.0.547.0
+  data-1:
+    image: containers.intersystems.com/intersystems/iris:2021.1.0.205.0
     init: true
-    container_name: data02 
-    hostname: data02
+    container_name: data-1 
+    hostname: data-1.iris
     command:
       --key /home/irisowner/license/iris.key
     volumes:
@@ -44,11 +44,11 @@ services:
     environment:
     - TZ=JST-9
     - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge.cpf
-  data03:
-    image: containers.intersystems.com/intersystems/iris:2020.4.0.547.0
+  data-2:
+    image: containers.intersystems.com/intersystems/iris:2021.1.0.205.0
     init: true
-    container_name: data03 
-    hostname: data03
+    container_name: data-2 
+    hostname: data-2.iris
     command:
       --key /home/irisowner/license/iris.key
     volumes:

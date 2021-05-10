@@ -1,6 +1,6 @@
 {
     "intersystems.servers": {   
-        "data01": {
+        "data-0": {
             "webServer": {
                 "scheme": "http",
                 "host": "localhost",
@@ -8,7 +8,7 @@
             },
             "username": "SuperUser"
         },
-        "data02": {
+        "data-1": {
             "webServer": {
                 "scheme": "http",
                 "host": "localhost",
@@ -16,7 +16,7 @@
             },
             "username": "SuperUser"
         },
-        "data03": {
+        "data-2": {
             "webServer": {
                 "scheme": "http",
                 "host": "localhost",
@@ -26,7 +26,7 @@
         }
     },
     "objectscript.conn": {
-        "server": "data01",
+        "server": "data-0",
         "ns": "IRISDM",
         "active": true
     }

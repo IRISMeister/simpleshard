@@ -1,2 +1,2 @@
-set status = $SYSTEM.Cluster.AttachAsDataNode("IRIS://data01:1972")
+set status = $SYSTEM.Cluster.AttachAsDataNode("IRIS://data-0.iris:1972")
 h

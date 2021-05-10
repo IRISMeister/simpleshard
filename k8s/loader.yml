@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: loader
+spec:
+  containers:
+    - name: loader
+      image: localhost:32000/simpleshard_loader
+      volumeMounts:
+      - mountPath: /app/loader
+        name: hostpath-loader    
+      - mountPath: /app/export
+        name: hostpath-export    
+  restartPolicy: Never
+  volumes:
+  - name: hostpath-loader
+    hostPath:
+      path: /home/yourHome/git/simpleshard/loader
+  - name: hostpath-export
+    hostPath:
+      path: /home/yourHome/git/simpleshard/export
+    
+

@@ -21,10 +21,14 @@ iris       ClusterIP      None            <none>           52773/TCP         6m2
 
 $ microk8s kubectl get pod -o wide
 NAME        READY   STATUS    RESTARTS   AGE     IP             NODE     NOMINATED NODE   READINESS GATES
-iris-ss-0   1/1     Running   0          2m59s   10.1.243.216   ubuntu   <none>           <none>
-iris-ss-1   1/1     Running   0          2m54s   10.1.243.217   ubuntu   <none>           <none>
+data-0   1/1     Running   0          2m59s   10.1.243.216   ubuntu   <none>           <none>
+data-1   1/1     Running   0          2m54s   10.1.243.217   ubuntu   <none>           <none>
 
-$ microk8s kubectl exec -it iris-ss-0 -- iris session iris
+$ microk8s kubectl exec -it data-0 -- iris session iris
+
+個別のPODにSMPアクセス
+$ microk8s kubectl port-forward data-0 --address 0.0.0.0 52773:52773
+http://192.168.11.49:52773/csp/sys/%25CSP.Portal.Home.zen
 
 停止、削除。Durable Sys, DBに使用したpvcも削除。
 $ ./delete.sh
@@ -33,23 +37,23 @@ $ microk8s reset --destroy-storage
 $ microk8s stop
 
 
-DNSのテスト
+ホスト名の確認
 $ microk8s kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
 
-/ # nslookup iris-ss-0.iris  <=POD間通信で使用するホスト名
+/ # nslookup data-0.iris  <=POD間通信で使用するホスト名
 Server:    10.152.183.10
 Address 1: 10.152.183.10 kube-dns.kube-system.svc.cluster.local
 
-Name:      iris-ss-0.iris
-Address 1: 10.1.243.216 iris-ss-0.iris.default.svc.cluster.local
+Name:      data-0.iris
+Address 1: 10.1.243.216 data-0.iris.default.svc.cluster.local
 / #
 / #
-/ # nslookup iris-ss-1.iris
+/ # nslookup data-1.iris
 Server:    10.152.183.10
 Address 1: 10.152.183.10 kube-dns.kube-system.svc.cluster.local
 
-Name:      iris-ss-1.iris
-Address 1: 10.1.243.217 iris-ss-1.iris.default.svc.cluster.local
+Name:      data-1.iris
+Address 1: 10.1.243.217 data-1.iris.default.svc.cluster.local
 / #
 / #
 / # nslookup iris
@@ -71,6 +75,7 @@ Address 1: 10.152.183.29 iris-ext.default.svc.cluster.local
 $
 
 
+DNSのテスト
 https://hawksnowlog.blogspot.com/2019/05/how-to-use-k8s-statefulset.html
 
 microk8s kubectl apply -f nginx_sts.yml
@@ -78,3 +83,9 @@ microk8s kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
 microk8s kubectl delete -f nginx_sts.yml
 microk8s kubectl delete pvc www-web-0 www-web-1 www-web-2
 
+
+
+$ docker tag simpleshard_loader localhost:32000/simpleshard_loader
+$ docker push localhost:32000/simpleshard_loader
+
+$ microk8s kubectl exec -it loader -- sh

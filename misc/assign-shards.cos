@@ -1,4 +1,4 @@
-Set sc=$SYSTEM.Sharding.AssignShard("USER","data02",1972,"USER")
-Set sc=$SYSTEM.Sharding.AssignShard("USER","data03",1972,"USER")
+Set sc=$SYSTEM.Sharding.AssignShard("USER","data-1.iris",1972,"USER")
+Set sc=$SYSTEM.Sharding.AssignShard("USER","data-2.iris",1972,"USER")
 Set sc=$SYSTEM.Sharding.VerifyShards("USER") zw sc
 h

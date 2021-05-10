@@ -49,13 +49,13 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: iris-ss
+  name: data
 spec:
   selector:
     matchLabels:
       app: iris
   serviceName: "iris"
-  replicas: 2
+  replicas: 3
   template:
     metadata:
       labels:
@@ -65,7 +65,10 @@ spec:
         - name: dockerhub-secret      
       terminationGracePeriodSeconds: 10
       containers:
-      - name: iris
+      - args:
+        - --key
+        - /irissys/key/iris.key
+        name: iris
         image: containers.intersystems.com/intersystems/iris:2021.1.0.205.0
         ports:
         - containerPort: 1972
@@ -80,6 +83,8 @@ spec:
         volumeMounts:
         - mountPath: /irissys/cpf/
           name: iris-cpf
+        - mountPath: /irissys/key/
+          name: iris-key
         - mountPath: /iris-mgr/IRIS_conf.d
           name: dbv-mgr
         - mountPath: /vol-data
@@ -89,6 +94,10 @@ spec:
           defaultMode: 420
           name: iris-merge-cpf
         name: iris-cpf
+      - secret:
+          defaultMode: 420
+          secretName: iris-key-secret
+        name: iris-key
   volumeClaimTemplates:
   - metadata:
       name: dbv-mgr
