@@ -28,7 +28,7 @@ $ microk8s kubectl exec -it data-0 -- iris session iris
 
 個別のPODにSMPアクセス
 $ microk8s kubectl port-forward data-0 --address 0.0.0.0 52773:52773
-http://192.168.11.49:52773/csp/sys/%25CSP.Portal.Home.zen
+http://192.168.11.49:52773/csp/sys/%25CSP.Portal.Home.zen SuperUser/SYS
 
 停止、削除。Durable Sys, DBに使用したpvcも削除。
 $ ./delete.sh
@@ -37,7 +37,7 @@ $ microk8s reset --destroy-storage
 $ microk8s stop
 
 
-ホスト名の確認
+ホスト名の確認方法
 $ microk8s kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
 
 / # nslookup data-0.iris  <=POD間通信で使用するホスト名
@@ -84,8 +84,10 @@ microk8s kubectl delete -f nginx_sts.yml
 microk8s kubectl delete pvc www-web-0 www-web-1 www-web-2
 
 
-
+Loaderのビルド
+$ docker-compose build loader
 $ docker tag simpleshard_loader localhost:32000/simpleshard_loader
 $ docker push localhost:32000/simpleshard_loader
-
 $ microk8s kubectl exec -it loader -- sh
+
+https://kubernetes.io/ja/docs/reference/kubectl/cheatsheet/

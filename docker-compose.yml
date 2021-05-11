@@ -30,6 +30,8 @@ services:
     init: true
     container_name: data-1 
     hostname: data-1.iris
+    depends_on:
+      - data-0
     command:
       --key /home/irisowner/license/iris.key
     volumes:
@@ -49,6 +51,8 @@ services:
     init: true
     container_name: data-2 
     hostname: data-2.iris
+    depends_on:
+      - data-0
     command:
       --key /home/irisowner/license/iris.key
     volumes:
