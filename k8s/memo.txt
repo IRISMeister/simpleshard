@@ -91,3 +91,22 @@ $ docker push localhost:32000/simpleshard_loader
 $ microk8s kubectl exec -it loader -- sh
 
 https://kubernetes.io/ja/docs/reference/kubectl/cheatsheet/
+
+
+
+# cpf merge always timeouts to configure shard cluster... maybe due to disk is too slow. 
+# Since there is no way to change retry count, I'm using manual steps, instead.
+# 05/11/21-16:32:07:832 (1226) 0 [Utility.Event] Attach attempt 8 of 10...
+# 05/11/21-16:32:12:085 (1225) 0 [Database.SparseDBExpansion] Expanding capacity of sparse database /iris-mgr/IRIS_conf.d/mgr/iristemp/ by 10 MB.
+# 05/11/21-16:32:12:858 (1226) 0 [Utility.Event] Attach attempt 9 of 10...
+# 05/11/21-16:32:17:887 (1226) 2 [Utility.Event] Cannot attach data node to IRIS://data-0.iris:1972 at this time
+
+    [Startup]
+    ShardRole=AUTO
+    ShardMasterRegexp=data-0.*
+    ShardRegexp=data.*
+    ShardClusterURL=IRIS://data-0.iris:1972
+
+    [config]
+    MaxServerConn=64
+    MaxServers=64

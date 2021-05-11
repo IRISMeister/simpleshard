@@ -1,5 +1,3 @@
 set rs=##class(%ResultSet).%New("%File:FileSet") d rs.Execute("/home/irisowner/misc","*.sql")
-While(rs.Next()) { Do $SYSTEM.SQL.Schema.ImportDDL(rs.Name) }
-
-Do $SYSTEM.OBJ.ImportDir("/home/irisowner/src/","*.mac","ck",,1)
+While(rs.Next()) { Do $SYSTEM.SQL.Schema.ImportDDL(rs.Name) } Do $SYSTEM.OBJ.ImportDir("/home/irisowner/src/","*.mac","ck",,1)
 h
