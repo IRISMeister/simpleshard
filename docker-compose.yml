@@ -1,8 +1,5 @@
 version: '3.7'
-#
-# $PWD is mounted as a generic /ISC in the container which then has the 
-# /ISC/etc and eventually 
-#
+
 services:
   data-0:
     image: containers.intersystems.com/intersystems/iris:2021.1.0.205.0
