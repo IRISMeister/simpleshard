@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  data-0:
+    environment:
+    - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge-pri2021.cpf
+  data-1:
+    environment:
+    - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge-pri2021.cpf
+  data-2:
+    environment:
+    - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge-pri2021.cpf
+  loader:
+    build:
+      dockerfile: Dockerfile

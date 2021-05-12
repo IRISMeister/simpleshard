@@ -6,7 +6,9 @@ shardingは複数のノードを扱うため、ちょっとした動作確認を
 
 Shardが有効なx64コンテナ用のライセンスキーを./license/iris.keyに配置してください。
 ```
-$ ./start-pri2021.sh
+$ ./start-pri2021.sh  (2020.4)
+or
+$ ./start-2021.sh     (2021.1)
 ```
 DATAノード*3台のノードレベルシャードが構成されます。  
 data-0コンテナがMASTERとして動作します。  
