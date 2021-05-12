@@ -3,7 +3,7 @@ CREATE TABLE sales (
     ItemID VARCHAR(10), 
     OrderDate TimeStamp, 
     price BigInt, 
-    shard key (ItemID)
+    shard
 )
 GO
 CREATE INDEX idx_TempoID ON sales(TempoID)

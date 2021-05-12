@@ -38,6 +38,15 @@ https://docs.intersystems.com/iris20201/csp/docbookj/Doc.View.cls?KEY=GSCALE_sha
 $ docker-compose exec data-0 iris session iris -U IRISDM load
 ```
 
+- Javaによるロード  
+[App.java](loader/build/src/main/java/com/example/App.java)によるランダムデータのロード例です。通常のJDBCプログラムです。
+```
+$ docker-compose exec loader sh
+/app # cd loader/build/src/main/java/
+/app/loader/build/src/main/java # ./build_and_run.sh
+```
+
+
 2. 複数のトランザクションテーブル
 
 |テーブル名|シャード|Shard Key|
