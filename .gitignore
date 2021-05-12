@@ -2,3 +2,4 @@
 loader/green_tripdata_2016-01.csv
 misc/*.log
 k8s/envs-no-pub.sh
+*.class
