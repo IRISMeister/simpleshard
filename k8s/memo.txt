@@ -94,7 +94,7 @@ https://kubernetes.io/ja/docs/reference/kubectl/cheatsheet/
 
 
 
-# cpf merge always timeouts to configure shard cluster... maybe due to disk is too slow. 
+# cpf merge always timeouts to configure shard cluster... maybe due to disk is too slow. Not sure.
 # Since there is no way to change retry count, I'm using manual steps, instead.
 # 05/11/21-16:32:07:832 (1226) 0 [Utility.Event] Attach attempt 8 of 10...
 # 05/11/21-16:32:12:085 (1225) 0 [Database.SparseDBExpansion] Expanding capacity of sparse database /iris-mgr/IRIS_conf.d/mgr/iristemp/ by 10 MB.
