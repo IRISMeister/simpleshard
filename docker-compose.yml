@@ -3,7 +3,6 @@ version: '3.7'
 services:
   data-0:
     image: containers.intersystems.com/intersystems/iris:2021.1.0.205.0
-    init: true
     container_name: data-0 
     hostname: data-0.iris
     command:
@@ -22,10 +21,8 @@ services:
     environment:
     - TZ=JST-9
     - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge.cpf
-    - TINI_SUBREAPER=true
   data-1:
     image: containers.intersystems.com/intersystems/iris:2021.1.0.205.0
-    init: true
     container_name: data-1 
     hostname: data-1.iris
     depends_on:
@@ -44,10 +41,8 @@ services:
     environment:
     - TZ=JST-9
     - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge.cpf
-    - TINI_SUBREAPER=true
   data-2:
     image: containers.intersystems.com/intersystems/iris:2021.1.0.205.0
-    init: true
     container_name: data-2 
     hostname: data-2.iris
     depends_on:
@@ -66,7 +61,6 @@ services:
     environment:
     - TZ=JST-9
     - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge.cpf
-    - TINI_SUBREAPER=true
   loader:
     init: true
     container_name: loader
