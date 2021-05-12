@@ -6,7 +6,7 @@ shardingは複数のノードを扱うため、ちょっとした動作確認を
 
 Shardが有効なx64コンテナ用のライセンスキーを./license/iris.keyに配置してください。
 ```
-$ ./start.sh
+$ ./start-pri2021.sh
 ```
 DATAノード*3台のノードレベルシャードが構成されます。  
 data-0コンテナがMASTERとして動作します。  
@@ -27,7 +27,7 @@ jdbc接続先の例 - jdbc:IRIS://irishost:1972/irisdm
 
 - SimpleLoaderによるロード  
 [loader/shell/sales.sh](loader/shell/sales.sh)が[SimpleMover](https://docs.intersystems.com/irislatest/csp/docbook/Doc.View.cls?KEY=ABULKLOAD)を使用して、[loader/sales.csv](loader/sales.csv)を高速ロードします。  
-注) [start.sh](start.sh)から実行されています。
+注) [start-pri2021.sh](start-pri2021.sh)から実行されています。
 
 - ObjectScriptによるロード  
 [load.mac](src/load.mac)を使用してロードを行います。

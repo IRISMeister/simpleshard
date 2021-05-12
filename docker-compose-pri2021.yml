@@ -4,12 +4,15 @@ services:
   data-0:
     image: containers.intersystems.com/intersystems/iris:2020.4.0.547.0
     environment:
-    - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge-old.cpf
+    - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge-pri2021.cpf
   data-1:
     image: containers.intersystems.com/intersystems/iris:2020.4.0.547.0
     environment:
-    - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge-old.cpf
+    - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge-pri2021.cpf
   data-2:
     image: containers.intersystems.com/intersystems/iris:2020.4.0.547.0
     environment:
-    - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge-old.cpf
+    - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge-pri2021.cpf
+  loader:
+    build:
+      dockerfile: Dockerfile.pri2021
