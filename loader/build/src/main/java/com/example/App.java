@@ -30,6 +30,11 @@ public class App
             dbconnection = DriverManager.getConnection(url,p);
             dbconnection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             dbconnection.setAutoCommit(true);
+
+            java.sql.DatabaseMetaData meta = dbconnection.getMetaData();
+            System.out.println (meta.getDriverName());
+            System.out.println ("release " + meta.getDriverVersion() + "\n");
+
             Random rand = new Random();
 
             //TempoID,ItemID,OrderDate,price
@@ -38,7 +43,7 @@ public class App
             pstmt = dbconnection.prepareStatement(isql);
             for (int i=1; i<=100; i++) {
                 pstmt.setString(1, String.valueOf(i));
-                itemcnt=10000;
+                itemcnt=1000;
                 for (int j=1; j<=itemcnt; j++) {
                     pstmt.setString(2, String.valueOf(j));
                     pstmt.setString(3, "2021-01-01");
@@ -49,15 +54,6 @@ public class App
             }
             pstmt.close();
             System.out.println(cnt+" records inserted");
-            /*
-    		pstmt = dbconnection.prepareStatement("SELECT 1 col1");
-            ResultSet rs = pstmt.executeQuery();
-            while(rs.next()){
-                System.out.println(rs.getString("col1"));
-            }
-			pstmt.close();
-            */
-
 
         } catch (Exception ex) {
             ex.printStackTrace();
