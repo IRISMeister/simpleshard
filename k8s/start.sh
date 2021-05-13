@@ -16,6 +16,7 @@ count=$(microk8s kubectl get statefulset | grep data | awk '{print $2}')
 done
 
 echo "setting up a shard cluster"
+microk8s kubectl exec -i data-0 -- iris session iris -U %SYS < ../misc/initialize.cos
 microk8s kubectl exec -i data-1 -- iris session iris -U %SYS < ../misc/join.cos
 microk8s kubectl exec -i data-2 -- iris session iris -U %SYS < ../misc/join.cos
 microk8s kubectl exec -i data-0 -- iris session iris -U %SYS < ../misc/verify.cos
