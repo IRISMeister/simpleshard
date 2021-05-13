@@ -110,3 +110,74 @@ https://kubernetes.io/ja/docs/reference/kubectl/cheatsheet/
     [config]
     MaxServerConn=64
     MaxServers=64
+
+Longhornのテスト
+
+ $ microk8s kubectl apply -f https://raw.githubusercontent.com/longhorn/longhorn/master/deploy/longhorn.yaml
+ $ microk8s kubectl -n longhorn-system get pods
+NAME                                       READY   STATUS    RESTARTS   AGE
+longhorn-ui-5b864949c4-72qkz               1/1     Running   0          4m3s
+longhorn-manager-wfpnl                     1/1     Running   0          4m3s
+longhorn-driver-deployer-ccb9974d5-w5mnz   1/1     Running   0          4m3s
+instance-manager-e-5f14d35b                1/1     Running   0          3m28s
+instance-manager-r-a8323182                1/1     Running   0          3m28s
+engine-image-ei-611d1496-qscbp             1/1     Running   0          3m28s
+csi-attacher-5df5c79d4b-gfncr              1/1     Running   0          3m21s
+csi-attacher-5df5c79d4b-ndwjn              1/1     Running   0          3m21s
+csi-provisioner-547dfff5dd-pj46m           1/1     Running   0          3m20s
+csi-resizer-5d6f844cd8-22dpp               1/1     Running   0          3m20s
+csi-provisioner-547dfff5dd-86w9h           1/1     Running   0          3m20s
+csi-resizer-5d6f844cd8-zn97g               1/1     Running   0          3m20s
+csi-resizer-5d6f844cd8-8nmfw               1/1     Running   0          3m20s
+csi-provisioner-547dfff5dd-pmwsk           1/1     Running   0          3m20s
+longhorn-csi-plugin-xsnj9                  2/2     Running   0          3m19s
+csi-snapshotter-76c6f569f9-wt8sh           1/1     Running   0          3m19s
+csi-snapshotter-76c6f569f9-w65xp           1/1     Running   0          3m19s
+csi-attacher-5df5c79d4b-gcf4l              1/1     Running   0          3m21s
+csi-snapshotter-76c6f569f9-fjx2h           1/1     Running   0          3m19s
+
+$ microk8s kubectl -n longhorn-system get svc
+NAME                TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)     AGE
+longhorn-backend    ClusterIP   10.152.183.82    <none>        9500/TCP    10m
+longhorn-frontend   ClusterIP   10.152.183.42    <none>        80/TCP      10m
+csi-attacher        ClusterIP   10.152.183.2     <none>        12345/TCP   9m51s
+csi-provisioner     ClusterIP   10.152.183.41    <none>        12345/TCP   9m51s
+csi-resizer         ClusterIP   10.152.183.229   <none>        12345/TCP   9m50s
+csi-snapshotter     ClusterIP   10.152.183.105   <none>        12345/TCP   9m50s
+
+On client PC (Windows 10)
+C:\> ssh -L 8888:10.152.183.42:80 iwamoto@192.168.11.49
+browser http://localhost:8888/
+
+
+simple.ymlの下記を修正。mountPathを変更する理由は、memo-clone.txtに。
+
+修正前    storageClassName: microk8s-hostpath
+修正後    storageClassName: longhorn
+
+修正前    - mountPath: /iris-mgr/IRIS_conf.d
+修正後    - mountPath: /iris-mgr
+
+$ microk8s kubectl apply -f simple.yml
+
+回避策として、initContainersを追加する方法も検討。これでもうまくいく。
+
+    spec:
+      imagePullSecrets:
+        - name: dockerhub-secret      
+      terminationGracePeriodSeconds: 10
+      initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "chmod 755 /iris-mgr"]
+        volumeMounts:
+        - name: dbv-mgr
+          mountPath: /iris-mgr
+      containers:
+      - args:
+        - --key
+        - /irissys/key/iris.key
+
+この後、initContainersを消して、失敗させようとしたらなぜか正常動作した...。意味不明。
+結局、理由はわからないまま。下記に戻して再発するまで様子を見る。
+- mountPath: /iris-mgr

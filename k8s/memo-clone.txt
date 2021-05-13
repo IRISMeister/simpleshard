@@ -1,0 +1,57 @@
+microk8s_hostpathとlonghornではマウントされたフォルダのプロテクションが違う。
+
+drwxr-xr-x 4 root root 4096 May 13 16:03 IRIS_conf.d/　　<= longhorn
+drwxrwxrwx 2 root root 4096 May 13 15:57 IRIS_conf.d2/   <= microk8s_hostpath
+
+これがどう関係するかわからないが、
+microk8s_hostpathの場合は下記が一致しないとcloningが失敗する。
+        env:
+        - name: ISC_DATA_DIRECTORY
+          value: /iris-mgr/IRIS_conf.d   <==ここ
+        volumeMounts:
+        - mountPath: /iris-mgr/IRIS_conf.d  <==ここ
+          name: dbv-mgr
+longhornの場合は下記が一致"する"とcloningが失敗する。
+        env:
+        - name: ISC_DATA_DIRECTORY
+          value: /iris-mgr/IRIS_conf.d   <==ここ
+        volumeMounts:
+        - mountPath: /iris-mgr  <==ここ
+          name: dbv-mgr
+
+これがcloningが安定しない原因？
+
+
+下記の実験から、元のフォルダのmodeが too openだとダメだと判断。
+777->755にした状態でのcloningは成功した。
+
+変更前
+irisowner@data-0:~$ ls / -l
+drwxrwxrwx   2 root      root         4096 May 13 16:23 iris-mgr/
+
+無理やり変更
+$ microk8s kubectl describe pv pvc-65c61a0d-e24c-46e6-bd81-d41ff99be52b
+Source:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/snap/microk8s/common/default-storage/default-dbv-mgr-data-0-pvc-65c61a0d-e24c-46e6-bd81-d41ff99be52b
+
+$  ls /var/snap/microk8s/common/default-storage/ -l
+total 28
+drwxrwxrwx 3 root root 4096 May 10 06:31 container-registry-registry-claim-pvc-5d294e23-29e3-4845-995b-2cb697875736
+drwxrwxrwx 2 root root 4096 May 13 07:23 default-dbv-data-data-0-pvc-9adcc781-24cc-45d1-9e24-50a76e7f3957
+drwxrwxrwx 2 root root 4096 May 13 07:23 default-dbv-data-data-1-pvc-1eb06d82-b868-49c4-9fed-4be0699fedbc
+drwxrwxrwx 2 root root 4096 May 13 07:23 default-dbv-data-data-2-pvc-3c471d7a-3e2b-45da-8352-ec2b786c5b04
+drwxrwxrwx 2 root root 4096 May 13 07:23 default-dbv-mgr-data-0-pvc-65c61a0d-e24c-46e6-bd81-d41ff99be52b
+drwxrwxrwx 2 root root 4096 May 13 07:23 default-dbv-mgr-data-1-pvc-3b4bffbd-3952-479e-af12-3a1a1330ab3e
+drwxrwxrwx 2 root root 4096 May 13 07:23 default-dbv-mgr-data-2-pvc-95b6e45b-0665-446b-afb4-d483b4d986ad
+
+$ sudo chmod 755 /var/snap/microk8s/common/default-storage/default-dbv-mgr-data-0-pvc-65c61a0d-e24c-46e6-bd81-d41ff99be52b
+
+
+変更後
+irisowner@data-0:~$ ls / -l
+drwxr-xr-x   2 root      root         4096 May 13 16:23 iris-mgr
+
+irisowner@data-0:~$ export ISC_DATA_DIRECTORY=/iris-mgr/IRIS_conf.d ; iris start iris
+成功...
+

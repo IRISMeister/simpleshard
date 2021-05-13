@@ -97,7 +97,7 @@ spec:
           name: iris-cpf
         - mountPath: /irissys/key/
           name: iris-key
-        - mountPath: /iris-mgr/IRIS_conf.d
+        - mountPath: /iris-mgr
           name: dbv-mgr
         - mountPath: /vol-data
           name: dbv-data
@@ -116,6 +116,7 @@ spec:
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: microk8s-hostpath
+      #storageClassName: longhorn
       resources:
         requests:
           storage: 5Gi
@@ -124,6 +125,7 @@ spec:
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: microk8s-hostpath
+      #storageClassName: longhorn
       resources:
         requests:
           storage: 5Gi
