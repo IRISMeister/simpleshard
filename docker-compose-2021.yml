@@ -2,12 +2,15 @@ version: '3.7'
 
 services:
   data-0:
+    image: containers.intersystems.com/intersystems/iris:2021.1.0.205.0
     environment:
-    - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge-pri2021.cpf
+      - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge-pri2021.cpf
   data-1:
+    image: containers.intersystems.com/intersystems/iris:2021.1.0.205.0
     environment:
     - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge-pri2021.cpf
   data-2:
+    image: containers.intersystems.com/intersystems/iris:2021.1.0.205.0
     environment:
     - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge-pri2021.cpf
   loader:
