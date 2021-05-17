@@ -17,5 +17,7 @@ services:
     environment:
     - ISC_CPF_MERGE_FILE=/home/irisowner/cpf/merge-pri2021.cpf
   loader:
+    image:
+      loader:20204
     build:
-      dockerfile: Dockerfile.pri2021
+      dockerfile: Dockerfile.20204
