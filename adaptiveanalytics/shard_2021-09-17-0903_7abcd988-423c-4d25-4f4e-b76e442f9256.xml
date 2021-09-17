@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.atscale.com/xsd/project_2_0" name="shard" version="2" xsi:schemaLocation="http://www.atscale.com/xsd/project_2_0 ../../../../../core/src/main/resources/com/atscale/engine/schema/project_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <annotations>
+    <annotation name="migrationVersion">2021.1.1.3423</annotation>
+    <annotation name="version">10</annotation>
+    <annotation name="engineId">cb96109c-a3f4-4cdc-7899-137d28a50055</annotation>
+    <annotation name="versionTag"></annotation>
+    <annotation name="publishDate">Published on Sep 17, 2021 at 7:07am (UTC)</annotation>
+  </annotations>
+  <properties>
+    <caption>shard</caption>
+    <visible>true</visible>
+    <aggressive-aggregate-promotion>false</aggressive-aggregate-promotion>
+    <aggregate-prediction>
+      <speculative-aggregates>false</speculative-aggregates>
+    </aggregate-prediction>
+    <preferred-aggregate-stores></preferred-aggregate-stores>
+  </properties>
+  <attributes>
+    <attribute-key id="4d1bde69-0589-4fa6-a37e-7ceebdf6513d">
+      <properties>
+        <visible>true</visible>
+        <columns>1</columns>
+      </properties>
+    </attribute-key>
+    <attribute-key id="ebd31a43-4acb-444b-9422-a5a1f2e54ec0">
+      <properties>
+        <visible>true</visible>
+        <columns>1</columns>
+      </properties>
+    </attribute-key>
+    <attribute-key id="e4360335-23b3-4da2-b2ec-568c912db7c3">
+      <properties>
+        <visible>true</visible>
+        <columns>1</columns>
+      </properties>
+    </attribute-key>
+    <attribute-key id="a9e09916-20f2-45fd-946a-e24edea40953">
+      <properties>
+        <visible>true</visible>
+        <columns>1</columns>
+      </properties>
+    </attribute-key>
+    <attribute-key id="b31cc982-a4b8-416a-8ced-98a069e11447">
+      <properties>
+        <visible>true</visible>
+        <columns>1</columns>
+      </properties>
+    </attribute-key>
+    <attribute-key id="610220fa-3078-46f6-b47a-5ffb3c5805bf">
+      <properties>
+        <visible>true</visible>
+        <columns>1</columns>
+      </properties>
+    </attribute-key>
+    <keyed-attribute id="063019c2-0f97-4242-495e-565cab1eaf25" key-ref="4d1bde69-0589-4fa6-a37e-7ceebdf6513d" name="d_Pickup_latitude">
+      <properties>
+        <caption>緯度</caption>
+        <visible>true</visible>
+        <type>
+          <enum></enum>
+        </type>
+        <ordering>
+          <sort-key>
+            <order>ascending</order>
+            <key-ref id="ebd31a43-4acb-444b-9422-a5a1f2e54ec0"></key-ref>
+          </sort-key>
+        </ordering>
+      </properties>
+    </keyed-attribute>
+    <keyed-attribute id="ff3e1e6c-3660-4145-778a-33fce084061a" key-ref="e4360335-23b3-4da2-b2ec-568c912db7c3" name="d_Pickup_longitude">
+      <properties>
+        <caption>経度</caption>
+        <visible>true</visible>
+        <type>
+          <enum></enum>
+        </type>
+        <ordering>
+          <sort-key>
+            <order>ascending</order>
+            <key-ref id="a9e09916-20f2-45fd-946a-e24edea40953"></key-ref>
+          </sort-key>
+        </ordering>
+      </properties>
+    </keyed-attribute>
+    <keyed-attribute id="1e3175ef-17f5-4ed9-696c-5f776fec004e" key-ref="b31cc982-a4b8-416a-8ced-98a069e11447" name="年月日">
+      <properties>
+        <caption>年月日</caption>
+        <visible>true</visible>
+        <type>
+          <enum></enum>
+        </type>
+        <ordering>
+          <sort-key>
+            <order>ascending</order>
+            <value></value>
+          </sort-key>
+        </ordering>
+      </properties>
+    </keyed-attribute>
+    <keyed-attribute id="ed682aba-2de8-452d-7936-bf67832a97b3" key-ref="610220fa-3078-46f6-b47a-5ffb3c5805bf" name="年月">
+      <properties>
+        <caption>年月</caption>
+        <visible>true</visible>
+        <type>
+          <enum></enum>
+        </type>
+        <ordering>
+          <sort-key>
+            <order>ascending</order>
+            <value></value>
+          </sort-key>
+        </ordering>
+      </properties>
+    </keyed-attribute>
+  </attributes>
+  <dimensions>
+    <dimension id="bfcda862-86ce-4543-4639-087c960d643a" name="カレンダ">
+      <properties>
+        <visible>true</visible>
+        <dimension-type>Time</dimension-type>
+      </properties>
+      <hierarchy id="29930403-c646-4b65-a7b8-a50eb35058f6" name="カレンダ">
+        <properties>
+          <caption>カレンダ</caption>
+          <visible>true</visible>
+          <filter-empty>Always</filter-empty>
+          <default-member>
+            <all-member></all-member>
+          </default-member>
+        </properties>
+        <level primary-attribute="ed682aba-2de8-452d-7936-bf67832a97b3">
+          <properties>
+            <unique-in-parent>false</unique-in-parent>
+            <visible>true</visible>
+            <level-type>TimeMonths</level-type>
+          </properties>
+        </level>
+        <level primary-attribute="1e3175ef-17f5-4ed9-696c-5f776fec004e">
+          <properties>
+            <unique-in-parent>false</unique-in-parent>
+            <visible>true</visible>
+            <level-type>TimeDays</level-type>
+          </properties>
+        </level>
+      </hierarchy>
+    </dimension>
+  </dimensions>
+  <data-sets>
+    <data-set id="2f7c2f0a-f31d-438a-440c-eba0f4d24bd4" name="dateomniture">
+      <properties>
+        <allow-aggregates>true</allow-aggregates>
+      </properties>
+      <physical>
+        <connection id="shard"></connection>
+        <table>
+          <schema>SQLUser</schema>
+          <name>dateomniture</name>
+        </table>
+        <immutable>false</immutable>
+        <column>
+          <name>datekey</name>
+          <type>Int</type>
+        </column>
+        <column>
+          <name>irisdate</name>
+          <type>Int</type>
+        </column>
+        <column>
+          <name>fulldatealternatekey</name>
+          <type>String</type>
+        </column>
+        <column>
+          <name>daynumberofweek</name>
+          <type>Int</type>
+        </column>
+        <column>
+          <name>englishdaynameofweek</name>
+          <type>String</type>
+        </column>
+        <column>
+          <name>daynumberofmonth</name>
+          <type>Int</type>
+        </column>
+        <column>
+          <name>weeknumberofyear</name>
+          <type>Int</type>
+        </column>
+        <column>
+          <name>englishmonthname</name>
+          <type>String</type>
+        </column>
+        <column>
+          <name>monthnumberofyear</name>
+          <type>Int</type>
+        </column>
+        <column>
+          <name>calendarquarter</name>
+          <type>Int</type>
+        </column>
+        <column>
+          <name>calendaryear</name>
+          <type>Int</type>
+        </column>
+        <column>
+          <name>年月</name>
+          <sql>SUBSTR(fulldatealternatekey,1,7) </sql>
+          <type>String</type>
+        </column>
+      </physical>
+      <logical>
+        <key-ref id="b31cc982-a4b8-416a-8ced-98a069e11447" unique="false" complete="true">
+          <column>fulldatealternatekey</column>
+        </key-ref>
+        <key-ref id="610220fa-3078-46f6-b47a-5ffb3c5805bf" unique="false" complete="true">
+          <column>年月</column>
+        </key-ref>
+        <attribute-ref id="1e3175ef-17f5-4ed9-696c-5f776fec004e" complete="true">
+          <column>fulldatealternatekey</column>
+        </attribute-ref>
+        <attribute-ref id="ed682aba-2de8-452d-7936-bf67832a97b3" complete="true">
+          <column>年月</column>
+        </attribute-ref>
+      </logical>
+    </data-set>
+    <data-set id="13cd5de7-ee28-4392-4439-719ad7c4edea" name="green_tripdata">
+      <properties>
+        <allow-aggregates>true</allow-aggregates>
+      </properties>
+      <physical>
+        <connection id="shard"></connection>
+        <table>
+          <schema>SQLUser</schema>
+          <name>green_tripdata</name>
+        </table>
+        <immutable>false</immutable>
+        <column>
+          <name>VendorID</name>
+          <type>String</type>
+        </column>
+        <column>
+          <name>lpep_pickup_datetime</name>
+          <type>DateTime</type>
+        </column>
+        <column>
+          <name>Lpep_dropoff_datetime</name>
+          <type>DateTime</type>
+        </column>
+        <column>
+          <name>Store_and_fwd_flag</name>
+          <type>String</type>
+        </column>
+        <column>
+          <name>RateCodeID</name>
+          <type>Int</type>
+        </column>
+        <column>
+          <name>Pickup_longitude</name>
+          <type>Decimal(18,15)</type>
+        </column>
+        <column>
+          <name>Pickup_latitude</name>
+          <type>Decimal(18,15)</type>
+        </column>
+        <column>
+          <name>Dropoff_longitude</name>
+          <type>Decimal(18,15)</type>
+        </column>
+        <column>
+          <name>Dropoff_latitude</name>
+          <type>Decimal(18,15)</type>
+        </column>
+        <column>
+          <name>Passenger_count</name>
+          <type>Int</type>
+        </column>
+        <column>
+          <name>Trip_distance</name>
+          <type>Decimal(18,2)</type>
+        </column>
+        <column>
+          <name>Fare_amount</name>
+          <type>Decimal(18,2)</type>
+        </column>
+        <column>
+          <name>Extra</name>
+          <type>Decimal(18,2)</type>
+        </column>
+        <column>
+          <name>MTA_tax</name>
+          <type>Decimal(18,2)</type>
+        </column>
+        <column>
+          <name>Tip_amount</name>
+          <type>Decimal(18,2)</type>
+        </column>
+        <column>
+          <name>Tolls_amount</name>
+          <type>Decimal(18,2)</type>
+        </column>
+        <column>
+          <name>Ehail_fee</name>
+          <type>String</type>
+        </column>
+        <column>
+          <name>improvement_surcharge</name>
+          <type>Decimal(18,2)</type>
+        </column>
+        <column>
+          <name>Total_amount</name>
+          <type>Decimal(18,2)</type>
+        </column>
+        <column>
+          <name>Payment_type</name>
+          <type>Int</type>
+        </column>
+        <column>
+          <name>Trip_type</name>
+          <type>String</type>
+        </column>
+        <column>
+          <name>移動タイプ</name>
+          <sql>CASE WHEN Trip_type=1 THEN &#39;Street-hail&#39; WHEN Trip_type=2 THEN &#39;Dispatch&#39; ELSE &#39;UNK&#39; END&#xA;&#xA;</sql>
+          <type>String</type>
+        </column>
+        <column>
+          <name>支払い方法</name>
+          <sql>CASE &#xA;WHEN Payment_type=1 THEN &#39;クレジットカード&#39; &#xA;WHEN Payment_type=2 THEN &#39;現金&#39; &#xA;WHEN Payment_type=3 THEN &#39;無料&#39; &#xA;WHEN Payment_type=4 THEN &#39;Dispute&#39; &#xA;WHEN Payment_type=5 THEN &#39;不明&#39; &#xA;WHEN Payment_type=6 THEN &#39;Voided trip&#39; &#xA;ELSE &#39;データなし&#39; END&#xA;</sql>
+          <type>String</type>
+        </column>
+        <column>
+          <name>価格レート</name>
+          <sql>CASE &#xA;WHEN RateCodeID=1 THEN &#39;標準&#39; &#xA;WHEN RateCodeID=2 THEN &#39;JFK&#39; &#xA;WHEN RateCodeID=3 THEN &#39;ニューアーク&#39; &#xA;WHEN RateCodeID=4 THEN &#39;ナッソー/ウェストチェスター&#39; &#xA;WHEN RateCodeID=5 THEN &#39;交渉価格&#39; &#xA;WHEN RateCodeID=6 THEN &#39;グループ割り&#39; &#xA;ELSE &#39;データなし&#39; END</sql>
+          <type>String</type>
+        </column>
+        <column>
+          <name>会社</name>
+          <sql>CASE WHEN VendorID= 1 THEN &#39;Creative Mobile&#39; WHEN VendorID= 2 THEN &#39;VeriFone&#39; ELSE &#39;不明&#39; END</sql>
+          <type>String</type>
+        </column>
+        <column>
+          <name>UniqID</name>
+          <sql>ID</sql>
+          <type>Long</type>
+        </column>
+        <column>
+          <name>乗車日付</name>
+          <sql>CAST(DATE(lpep_pickup_datetime) AS VARCHAR)</sql>
+          <type>String</type>
+        </column>
+      </physical>
+      <logical>
+        <key-ref id="4d1bde69-0589-4fa6-a37e-7ceebdf6513d" unique="false" complete="true">
+          <column>Pickup_latitude</column>
+        </key-ref>
+        <key-ref id="ebd31a43-4acb-444b-9422-a5a1f2e54ec0" unique="false" complete="true">
+          <column>Pickup_latitude</column>
+        </key-ref>
+        <key-ref id="e4360335-23b3-4da2-b2ec-568c912db7c3" unique="false" complete="true">
+          <column>Pickup_longitude</column>
+        </key-ref>
+        <key-ref id="a9e09916-20f2-45fd-946a-e24edea40953" unique="false" complete="true">
+          <column>Pickup_longitude</column>
+        </key-ref>
+        <attribute-ref id="063019c2-0f97-4242-495e-565cab1eaf25" complete="true">
+          <column>Pickup_latitude</column>
+        </attribute-ref>
+        <attribute-ref id="ff3e1e6c-3660-4145-778a-33fce084061a" complete="true">
+          <column>Pickup_longitude</column>
+        </attribute-ref>
+      </logical>
+    </data-set>
+  </data-sets>
+  <cubes>
+    <cube id="dc237e5d-260b-4715-582b-fd22b9673099" name="shard">
+      <properties>
+        <caption>shardCube</caption>
+        <visible>false</visible>
+      </properties>
+      <attributes>
+        <attribute-key id="344a3e48-83ea-4d46-8d87-1dfba57017ca">
+          <properties>
+            <visible>true</visible>
+            <columns>1</columns>
+          </properties>
+        </attribute-key>
+        <attribute-key id="bccb324e-f689-440f-8288-888740e20901">
+          <properties>
+            <visible>true</visible>
+            <columns>1</columns>
+          </properties>
+        </attribute-key>
+        <attribute-key id="3e62ab08-29c3-4f7e-805b-e94f139985d0">
+          <properties>
+            <visible>true</visible>
+            <columns>1</columns>
+          </properties>
+        </attribute-key>
+        <attribute-key id="b9083c30-7b50-4883-9b22-847650fc4471">
+          <properties>
+            <visible>true</visible>
+            <columns>1</columns>
+          </properties>
+        </attribute-key>
+        <attribute-key id="ef39cbc2-c865-4c70-bea6-5a71dbfbc2b8">
+          <properties>
+            <visible>true</visible>
+            <columns>1</columns>
+          </properties>
+        </attribute-key>
+        <attribute-key id="da7e3ac1-45db-49d8-b28a-a14ae2fb307e">
+          <properties>
+            <visible>true</visible>
+            <columns>1</columns>
+          </properties>
+        </attribute-key>
+        <keyed-attribute id="bc16bf30-80ed-4c0b-be32-c55969c2dd89" key-ref="344a3e48-83ea-4d46-8d87-1dfba57017ca" name="会社名">
+          <properties>
+            <caption>会社名</caption>
+            <visible>true</visible>
+            <type>
+              <enum></enum>
+            </type>
+            <ordering>
+              <sort-key>
+                <order>ascending</order>
+                <value></value>
+              </sort-key>
+            </ordering>
+          </properties>
+        </keyed-attribute>
+        <keyed-attribute id="449f2f4f-9646-4adf-b47e-b99aa76b994e" key-ref="bccb324e-f689-440f-8288-888740e20901" name="移動タイプ">
+          <properties>
+            <caption>移動タイプ</caption>
+            <visible>true</visible>
+            <type>
+              <enum></enum>
+            </type>
+          </properties>
+        </keyed-attribute>
+        <keyed-attribute id="2eae6c63-9712-43ff-8e18-c80d4868618c" key-ref="3e62ab08-29c3-4f7e-805b-e94f139985d0" name="支払い方法">
+          <properties>
+            <caption>支払い方法</caption>
+            <visible>true</visible>
+            <type>
+              <enum></enum>
+            </type>
+          </properties>
+        </keyed-attribute>
+        <keyed-attribute id="bcad72d2-b4b7-4e90-b818-82ad951522ea" key-ref="b9083c30-7b50-4883-9b22-847650fc4471" name="価格レート">
+          <properties>
+            <caption>価格レート</caption>
+            <visible>true</visible>
+            <type>
+              <enum></enum>
+            </type>
+          </properties>
+        </keyed-attribute>
+        <keyed-attribute id="019fb7d0-a113-4143-8ac8-b8325d8121aa" key-ref="ef39cbc2-c865-4c70-bea6-5a71dbfbc2b8" name="Uniq_ID">
+          <properties>
+            <caption>Uniq_ID</caption>
+            <visible>true</visible>
+            <type>
+              <enum></enum>
+            </type>
+          </properties>
+        </keyed-attribute>
+        <attribute id="0f700e20-30f5-4c62-ab82-eb9786472bbf" name="m_Passenger_count_sum">
+          <properties>
+            <caption>乗客数</caption>
+            <visible>true</visible>
+            <type>
+              <measure>
+                <default-aggregation>SUM</default-aggregation>
+              </measure>
+            </type>
+          </properties>
+        </attribute>
+        <attribute id="64e26feb-7b32-48c8-abe1-65081d472b53" name="m_Trip_distance_sum">
+          <properties>
+            <caption>乗車距離</caption>
+            <visible>true</visible>
+            <type>
+              <measure>
+                <default-aggregation>SUM</default-aggregation>
+              </measure>
+            </type>
+          </properties>
+        </attribute>
+        <attribute id="705fbd6f-a153-496c-8478-669e01a53fd5" name="m_Total_amount_sum">
+          <properties>
+            <caption>請求総額</caption>
+            <visible>true</visible>
+            <type>
+              <measure>
+                <default-aggregation>SUM</default-aggregation>
+              </measure>
+            </type>
+          </properties>
+        </attribute>
+        <attribute id="de1bbcd6-6a05-4f32-9952-28b39de2fa28" name="m_UniqID_distinct">
+          <properties>
+            <caption>件数</caption>
+            <visible>true</visible>
+            <type>
+              <count-distinct>
+                <key-ref id="da7e3ac1-45db-49d8-b28a-a14ae2fb307e"></key-ref>
+                <approximate>false</approximate>
+              </count-distinct>
+            </type>
+          </properties>
+        </attribute>
+      </attributes>
+      <dimensions>
+        <dimension id="9f4d95c4-386c-438d-a467-4aedcfc8f9b4" name="会社">
+          <properties>
+            <visible>true</visible>
+          </properties>
+          <hierarchy id="af575e3c-5969-4f1b-ae12-03fa38f5b27d" name="会社H">
+            <properties>
+              <caption>会社H</caption>
+              <visible>true</visible>
+              <filter-empty>Yes</filter-empty>
+              <default-member>
+                <all-member></all-member>
+              </default-member>
+            </properties>
+            <level primary-attribute="bc16bf30-80ed-4c0b-be32-c55969c2dd89">
+              <properties>
+                <unique-in-parent>false</unique-in-parent>
+                <visible>true</visible>
+              </properties>
+            </level>
+          </hierarchy>
+        </dimension>
+        <dimension id="d727bc24-c7f3-481b-8a10-a5bff831bfab" name="移動タイプ">
+          <properties>
+            <visible>true</visible>
+          </properties>
+          <hierarchy id="0747286b-74a1-43d4-af73-376feb869dd3" name="移動タイプH">
+            <properties>
+              <caption>移動タイプH</caption>
+              <visible>true</visible>
+              <filter-empty>Yes</filter-empty>
+              <default-member>
+                <all-member></all-member>
+              </default-member>
+            </properties>
+            <level primary-attribute="449f2f4f-9646-4adf-b47e-b99aa76b994e">
+              <properties>
+                <unique-in-parent>false</unique-in-parent>
+                <visible>true</visible>
+              </properties>
+            </level>
+          </hierarchy>
+        </dimension>
+        <dimension id="3b72da72-7697-41a1-97f0-dc4b677e9364" name="支払い方法">
+          <properties>
+            <visible>true</visible>
+          </properties>
+          <hierarchy id="45cba3ac-2745-4893-a13c-fddd38e7e7e8" name="支払い方法H">
+            <properties>
+              <caption>支払い方法H</caption>
+              <visible>true</visible>
+              <filter-empty>Yes</filter-empty>
+              <default-member>
+                <all-member></all-member>
+              </default-member>
+            </properties>
+            <level primary-attribute="2eae6c63-9712-43ff-8e18-c80d4868618c">
+              <properties>
+                <unique-in-parent>false</unique-in-parent>
+                <visible>true</visible>
+              </properties>
+            </level>
+          </hierarchy>
+        </dimension>
+        <dimension id="04e23f98-f878-448b-a34b-7f90b6b01a7e" name="価格レート">
+          <properties>
+            <visible>true</visible>
+          </properties>
+          <hierarchy id="e82e0b3e-4dba-4eb4-b34a-a5b78619a0f1" name="価格レートH">
+            <properties>
+              <caption>価格レートH</caption>
+              <visible>true</visible>
+              <filter-empty>Yes</filter-empty>
+              <default-member>
+                <all-member></all-member>
+              </default-member>
+            </properties>
+            <level primary-attribute="bcad72d2-b4b7-4e90-b818-82ad951522ea">
+              <properties>
+                <unique-in-parent>false</unique-in-parent>
+                <visible>true</visible>
+              </properties>
+            </level>
+          </hierarchy>
+        </dimension>
+        <dimension id="462bc663-be9c-4180-a462-74ffae6a2b1e" name="Uniq_ID">
+          <properties>
+            <visible>true</visible>
+          </properties>
+          <hierarchy id="28100deb-1229-458d-802a-89bac0c79725" name="Uniq_ID">
+            <properties>
+              <caption>Uniq_ID</caption>
+              <visible>true</visible>
+              <filter-empty>Always</filter-empty>
+              <default-member>
+                <all-member></all-member>
+              </default-member>
+            </properties>
+            <level primary-attribute="019fb7d0-a113-4143-8ac8-b8325d8121aa">
+              <properties>
+                <unique-in-parent>false</unique-in-parent>
+                <visible>true</visible>
+              </properties>
+              <keyed-attribute-ref attribute-id="063019c2-0f97-4242-495e-565cab1eaf25">
+                <properties>
+                  <multiplicity></multiplicity>
+                </properties>
+              </keyed-attribute-ref>
+              <keyed-attribute-ref attribute-id="ff3e1e6c-3660-4145-778a-33fce084061a">
+                <properties>
+                  <multiplicity></multiplicity>
+                </properties>
+              </keyed-attribute-ref>
+            </level>
+          </hierarchy>
+        </dimension>
+      </dimensions>
+      <actions>
+        <properties>
+          <include-default-drill-through>true</include-default-drill-through>
+        </properties>
+      </actions>
+      <data-sets>
+        <data-set-ref id="13cd5de7-ee28-4392-4439-719ad7c4edea">
+          <properties>
+            <allow-aggregates>true</allow-aggregates>
+            <create-hinted-aggregate>false</create-hinted-aggregate>
+          </properties>
+          <logical>
+            <key-ref id="344a3e48-83ea-4d46-8d87-1dfba57017ca" unique="false" complete="true">
+              <column>会社</column>
+            </key-ref>
+            <key-ref id="bccb324e-f689-440f-8288-888740e20901" unique="false" complete="true">
+              <column>移動タイプ</column>
+            </key-ref>
+            <key-ref id="3e62ab08-29c3-4f7e-805b-e94f139985d0" unique="false" complete="true">
+              <column>支払い方法</column>
+            </key-ref>
+            <key-ref id="b9083c30-7b50-4883-9b22-847650fc4471" unique="false" complete="true">
+              <column>価格レート</column>
+            </key-ref>
+            <key-ref id="ef39cbc2-c865-4c70-bea6-5a71dbfbc2b8" unique="false" complete="true">
+              <column>UniqID</column>
+            </key-ref>
+            <key-ref id="da7e3ac1-45db-49d8-b28a-a14ae2fb307e" unique="false" complete="true">
+              <column>UniqID</column>
+            </key-ref>
+            <key-ref id="b31cc982-a4b8-416a-8ced-98a069e11447" unique="false" complete="false">
+              <column>乗車日付</column>
+            </key-ref>
+            <attribute-ref id="0f700e20-30f5-4c62-ab82-eb9786472bbf" complete="true">
+              <column>Passenger_count</column>
+            </attribute-ref>
+            <attribute-ref id="64e26feb-7b32-48c8-abe1-65081d472b53" complete="true">
+              <column>Trip_distance</column>
+            </attribute-ref>
+            <attribute-ref id="bc16bf30-80ed-4c0b-be32-c55969c2dd89" complete="true">
+              <column>会社</column>
+            </attribute-ref>
+            <attribute-ref id="449f2f4f-9646-4adf-b47e-b99aa76b994e" complete="true">
+              <column>移動タイプ</column>
+            </attribute-ref>
+            <attribute-ref id="2eae6c63-9712-43ff-8e18-c80d4868618c" complete="true">
+              <column>支払い方法</column>
+            </attribute-ref>
+            <attribute-ref id="bcad72d2-b4b7-4e90-b818-82ad951522ea" complete="true">
+              <column>価格レート</column>
+            </attribute-ref>
+            <attribute-ref id="705fbd6f-a153-496c-8478-669e01a53fd5" complete="true">
+              <column>Total_amount</column>
+            </attribute-ref>
+            <attribute-ref id="019fb7d0-a113-4143-8ac8-b8325d8121aa" complete="true">
+              <column>UniqID</column>
+            </attribute-ref>
+          </logical>
+        </data-set-ref>
+      </data-sets>
+      <calculated-members></calculated-members>
+      <aggregates>
+        <aggregate id="72231bfa-5602-43dc-908b-8271ea7f8aca" name="payment-count">
+          <properties>
+            <name>payment-count</name>
+          </properties>
+          <attributes>
+            <attribute-ref id="2eae6c63-9712-43ff-8e18-c80d4868618c"></attribute-ref>
+            <attribute-ref id="de1bbcd6-6a05-4f32-9952-28b39de2fa28"></attribute-ref>
+          </attributes>
+          <partitions></partitions>
+          <distribution-keys></distribution-keys>
+        </aggregate>
+      </aggregates>
+    </cube>
+  </cubes>
+</schema>
