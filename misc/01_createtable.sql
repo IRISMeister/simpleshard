@@ -32,3 +32,9 @@ CREATE INDEX idx_Lpep_dropoff_datetime ON green_tripdata(Lpep_dropoff_datetime)
 GO
 CREATE BITMAP INDEX idxbm_lpep_pickup_datetime on green_tripdata(lpep_pickup_datetime)
 GO
+CREATE INDEX idx_Payment_type ON green_tripdata(Payment_type)
+GO
+CREATE INDEX idx_Trip_type ON green_tripdata(Trip_type)
+GO
+CREATE INDEX idx_RateCodeID ON green_tripdata(RateCodeID)
+GO
